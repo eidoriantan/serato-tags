@@ -16,6 +16,16 @@ FIELDPARSERS = {
     'u': lambda x: struct.unpack('>I', x)[0],
 }
 
+FIELDWRITERS = {
+  "b": lambda x: struct.pack("?", x),
+  "o": lambda x: dump(x),
+  "p": lambda x: b"\00" + x.encode("utf-16")[2:-1],
+  "r": lambda x: dump(x),
+  "s": lambda x: struct.pack(">H", x),
+  "t": lambda x: b"\00" + x.encode("utf-16")[2:-1],
+  "u": lambda x: struct.pack(">I", x)
+}
+
 FIELDNAMES = {
     # Database
     'vrsn': 'Version',
@@ -68,6 +78,21 @@ def parse(fp):
 
         yield name, length, value
 
+def dump(entries):
+    data = b""
+    for name, _, value in entries:
+        type_id = name[0] if name != "vrsn" else "t"
+        try:
+            fieldwriter = FIELDWRITERS[type_id]
+        except KeyError:
+            encoded = value
+        else:
+            encoded = fieldwriter(value)
+
+        header = struct.pack(">4sI", name.encode("ascii"), len(encoded))
+        assert len(header) == 8
+        data += header + encoded
+    return data
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
