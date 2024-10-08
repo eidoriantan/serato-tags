@@ -71,10 +71,12 @@ def parse(fp):
 
         try:
             fieldparser = FIELDPARSERS[type_id]
+            value = fieldparser(data)
         except KeyError:
             value = data
-        else:
-            value = fieldparser(data)
+        except UnicodeDecodeError:
+            print(f"Unable to parse data: ({name}, {data})")
+            value = data
 
         yield name, length, value
 
