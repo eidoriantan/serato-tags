@@ -109,12 +109,12 @@ class Entry(object):
                 value = serato32encode(value)
             elif field == 'start_position':
                 if value is None:
-                    value = 0x7F7F7F7F
+                    value = serato32encode(struct.pack(">I", 0x7F7F7F7F)[1:])
                 else:
                     value = serato32encode(struct.pack('>I', value)[1:])
             elif field == 'end_position':
                 if value is None:
-                    value = 0x7F7F7F7F
+                    value = serato32encode(struct.pack(">I", 0x7F7F7F7F)[1:])
                 else:
                     value = serato32encode(struct.pack('>I', value)[1:])
             elif field == 'type':
