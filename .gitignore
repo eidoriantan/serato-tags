@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+*.manifest
+*.spec
+
+.venv
+
+.DS_Store
