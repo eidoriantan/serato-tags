@@ -5,14 +5,25 @@ import struct
 import io
 import sys
 
+def swap_16le(b):
+    blen = len(b)
+    if blen % 2 > 0:
+        raise Exception("Bytes were not UTF-16 encoded")
+
+    swapped = bytearray()
+    for i in range(0, blen - 1, 2):
+        swapped.append(b[i + 1])
+        swapped.append(b[i])
+
+    return bytes(swapped)
 
 FIELDPARSERS = {
     'b': lambda x: struct.unpack('?', x)[0],
     'o': lambda x: tuple(parse(io.BytesIO(x))),
-    'p': lambda x: (x[1:] + b'\00').decode('utf-16'),
+    'p': lambda x: swap_16le(x).decode('utf-16'),
     'r': lambda x: tuple(parse(io.BytesIO(x))),
     's': lambda x: struct.unpack('>H', x)[0],
-    't': lambda x: (x[1:] + b'\00').decode('utf-16'),
+    't': lambda x: swap_16le(x).decode('utf-16'),
     'u': lambda x: struct.unpack('>I', x)[0],
 }
 
