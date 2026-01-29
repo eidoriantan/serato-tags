@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
   name = "mlt-serato-tags",
-  version = "1.0.1",
+  version = "1.0.2",
   author = "Jan Holthuis",
   author_email = "holthuis.jan@googlemail.com",
   description = ("Serato DJ Pro GEOB tags documentation"),
