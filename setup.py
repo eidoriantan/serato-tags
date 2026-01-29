@@ -12,7 +12,7 @@ setup(
   description = ("Serato DJ Pro GEOB tags documentation"),
   license = "MIT",
   url = "https://github.com/eidoriantan/serato-tags",
-  packages=find_packages(),
+  package_dir={'mltseratotags': 'scripts'},
   long_description=read('README.md'),
   classifiers=[
     "Programming Language :: Python :: 3",
