@@ -1,0 +1,28 @@
+[build-system]
+requires = [
+  "setuptools >= 77.0.3",
+  "mutagen >= 1.47.0",
+  "pillow >= 11.2.1"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlt-serato-tags"
+version = "1.0.0"
+authors = [
+  { name="Jan Holthuis", email="holthuis.jan@googlemail.com" },
+  { name="Adriane Justine Tan", email="eidoriantan@gmail.com" },
+]
+description = "Serato DJ Pro GEOB tags documentation"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/eidoriantan/serato-tags"
+Issues = "https://github.com/eidoriantan/serato-tags/issues"
